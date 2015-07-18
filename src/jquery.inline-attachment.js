@@ -56,6 +56,39 @@
           e.preventDefault();
         }
       });
+
+      // Custom code added by AP to include file picker like GitHub
+      var filePicker = $this.parent().find('.manual-file-chooser');
+
+      if( filePicker.length > 0 ) {
+
+        filePicker.html('Add images by dragging and dropping or ');
+
+        jQuery('<a/>', {
+            href: '#',
+            class: 'manual-file-chooser-text',
+            text: 'selecting them from your device',
+        }).appendTo( filePicker );
+
+        jQuery('<input/>', {
+            class: 'manual-file-chooser',
+            type: 'file',
+            multiple: 'multiple',
+        }).appendTo( filePicker );
+
+        $this.parent().on('change', '.manual-file-chooser', function (e)
+        {
+            e.stopPropagation();
+            e.preventDefault();
+            inlineattach.onFileChooserChange(e);
+        });
+      }
+
+    });
+
+    $('.manual-file-chooser-text').on('click', function(e) {
+      e.preventDefault();
+      $(this).parent().find('.manual-file-chooser').trigger('click');
     });
 
     return this;

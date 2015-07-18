@@ -387,6 +387,29 @@
     return result;
   };
 
+  /**
+   * Called when file choice changes
+   *
+   * Added by AP to provide file picker option as well as drag and drop
+   *
+   * @param {Event} e
+   * @returns {Boolean} If a file is handled
+   */
+  inlineAttachment.prototype.onFileChooserChange = function(e) {
+    var result = false;
+
+    for (var i = 0; i < e.target.files.length; i++) {
+      var file = e.target.files[i];
+      if (this.isFileAllowed(file)) {
+        result = true;
+        this.onFileInserted(file);
+        this.uploadFile(file);
+      }
+    }
+
+    return result;
+  };
+
   window.inlineAttachment = inlineAttachment;
 
 })(document, window);
