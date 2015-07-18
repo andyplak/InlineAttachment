@@ -71,12 +71,12 @@
         }).appendTo( filePicker );
 
         jQuery('<input/>', {
-            class: 'manual-file-chooser',
+            class: 'manual-file-chooser-input',
             type: 'file',
             multiple: 'multiple',
         }).appendTo( filePicker );
 
-        $this.parent().on('change', '.manual-file-chooser', function (e)
+        $this.parent().on('change', '.manual-file-chooser-input', function (e)
         {
             e.stopPropagation();
             e.preventDefault();
@@ -86,9 +86,11 @@
 
     });
 
+    $('.manual-file-chooser-text').off('click');
     $('.manual-file-chooser-text').on('click', function(e) {
+      e.stopPropagation();
       e.preventDefault();
-      $(this).parent().find('.manual-file-chooser').trigger('click');
+      $(this).parent().find('.manual-file-chooser-input').trigger('click');
     });
 
     return this;
